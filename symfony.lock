@@ -47,6 +47,18 @@
             ".php-cs-fixer.dist.php"
         ]
     },
+    "nelmio/cors-bundle": {
+        "version": "2.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.5",
+            "ref": "6bea22e6c564fba3a1391615cada1437d0bde39c"
+        },
+        "files": [
+            "config/packages/nelmio_cors.yaml"
+        ]
+    },
     "phpstan/phpstan": {
         "version": "2.2",
         "recipe": {
@@ -124,6 +136,46 @@
         "files": [
             "config/packages/routing.yaml",
             "config/routes.yaml"
+        ]
+    },
+    "symfony/stimulus-bundle": {
+        "version": "3.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.3",
+            "ref": "30f7461c215766d446f3c990b2b18f08ff51386e"
+        },
+        "files": [
+            "assets/controllers.json",
+            "assets/controllers/csrf_protection_controller.js",
+            "assets/controllers/hello_controller.js",
+            "assets/stimulus_bootstrap.js"
+        ]
+    },
+    "symfony/twig-bundle": {
+        "version": "8.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.4",
+            "ref": "06dacf16872358cb1f2494e089070ff2d045233a"
+        },
+        "files": [
+            "config/packages/twig.yaml",
+            "templates/base.html.twig"
+        ]
+    },
+    "symfony/ux-vue": {
+        "version": "3.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.9",
+            "ref": "8b87f5866b5af6728a58aaf7f5ba77e3816e35ed"
+        },
+        "files": [
+            "assets/vue/controllers/Hello.vue"
         ]
     },
     "symfony/validator": {

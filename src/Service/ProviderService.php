@@ -35,7 +35,7 @@ final readonly class ProviderService
             needProxy: $requestData['needProxy'] ?? false,
         );
 
-        return $this->providerRepository->saveProvider($provider);
+        return $this->providerRepository->saveItem($provider);
     }
 
     public function putProvider(array $requestData, int $id): Provider
@@ -53,7 +53,7 @@ final readonly class ProviderService
         $provider->setRfResident($requestData['rfResident'] ?? throw new BadRequestException('Required data missing'));
         $provider->setNeedProxy($requestData['needProxy'] ?? throw new BadRequestException('Required data missing'));
 
-        return $this->providerRepository->saveProvider($provider);
+        return $this->providerRepository->saveItem($provider);
     }
 
     public function patchProvider(array $requestData, int $id): Provider
@@ -71,10 +71,10 @@ final readonly class ProviderService
         $provider->setRfResident($requestData['rfResident'] ?? $provider->isRfResident());
         $provider->setNeedProxy($requestData['needProxy'] ?? $provider->isNeedProxy());
 
-        return $this->providerRepository->saveProvider($provider);
+        return $this->providerRepository->saveItem($provider);
     }
 
-    public function deleteProvider(int $id): Provider
+    public function deleteProvider(int $id): null
     {
         $provider = $this->providerRepository->findOne($id);
 
@@ -82,6 +82,8 @@ final readonly class ProviderService
             throw new NotFoundHttpException(sprintf('Provider with id %d not found', $id));
         }
 
-        return $this->providerRepository->deleteProvider($provider);
+        $this->providerRepository->deleteItem($provider);
+
+        return null;
     }
 }

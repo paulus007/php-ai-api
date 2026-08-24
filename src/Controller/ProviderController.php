@@ -29,33 +29,25 @@ class ProviderController extends AbstractController
     #[Route('/provider/post', methods: [Request::METHOD_POST])]
     public function postProvider(Request $request): JsonResponse
     {
-        return new JsonResponse(
-            $this->providerService->postProvider($request->toArray())
-        );
+        return new JsonResponse($this->providerService->postProvider($request->toArray()));
     }
 
     #[Route('/provider/put/{id}', methods: [Request::METHOD_PUT])]
     public function putProvider(Request$request, int $id): JsonResponse
     {
-        return new JsonResponse([
-            $this->providerService->putProvider($request->toArray(), $id)
-        ]);
+        return new JsonResponse($this->providerService->putProvider($request->toArray(), $id));
     }
 
     #[Route('/provider/patch/{id}', methods: [Request::METHOD_PATCH])]
     public function patchProvider(Request $request, int $id): JsonResponse
     {
-        return new JsonResponse([
-            $this->providerService->patchProvider($request->toArray(), $id)
-        ]);
+        return new JsonResponse($this->providerService->patchProvider($request->toArray(), $id));
     }
 
     #[Route('/provider/delete/{id}', methods: [Request::METHOD_DELETE])]
     public function deleteProvider(int $id): JsonResponse
     {
-        return new JsonResponse([
-            $this->providerService->deleteProvider($id)
-        ]);
+        return new JsonResponse($this->providerService->deleteProvider($id));
     }
 
 }

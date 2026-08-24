@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
-abstract readonly class AbstractRepository
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
+interface AbstractRepository
 {
-    protected const int DEFAULT_OFFSET = 0;
-    protected const int DEFAULT_LIMIT = 5;
+    public const int DEFAULT_OFFSET = 0;
+    public const int DEFAULT_LIMIT = 5;
 }
