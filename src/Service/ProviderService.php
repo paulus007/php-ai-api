@@ -46,12 +46,12 @@ final readonly class ProviderService
             throw new NotFoundHttpException(sprintf('Provider with id %d not found', $id));
         }
 
-        $provider->setName($requestData['name'] ?? $provider->getName());
-        $provider->setDescription($requestData['description'] ?? $provider->getDescription());
-        $provider->setUrl($requestData['url'] ?? $provider->getUrl());
-        $provider->setActive($requestData['active'] ?? $provider->isActive());
-        $provider->setRfResident($requestData['rfResident'] ?? $provider->isRfResident());
-        $provider->setNeedProxy($requestData['needProxy'] ?? $provider->isNeedProxy());
+        $provider->setName($requestData['name'] ?? throw new BadRequestException('Required data missing'));
+        $provider->setDescription($requestData['description'] ?? throw new BadRequestException('Required data missing'));
+        $provider->setUrl($requestData['url'] ?? throw new BadRequestException('Required data missing'));
+        $provider->setActive($requestData['active'] ?? throw new BadRequestException('Required data missing'));
+        $provider->setRfResident($requestData['rfResident'] ?? throw new BadRequestException('Required data missing'));
+        $provider->setNeedProxy($requestData['needProxy'] ?? throw new BadRequestException('Required data missing'));
 
         return $this->providerRepository->saveProvider($provider);
     }
