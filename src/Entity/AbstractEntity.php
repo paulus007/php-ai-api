@@ -10,7 +10,7 @@ abstract class AbstractEntity implements \JsonSerializable
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    final protected ?int $id = null;
+    final protected int $id;
 
     final public function getId(): int
     {

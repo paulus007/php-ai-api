@@ -4,17 +4,23 @@ namespace App\Repository;
 
 use App\Entity\Provider;
 use App\Representation\Page;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-final readonly class ProviderRepository extends AbstractRepository
+/**
+ * @extends ServiceEntityRepository<Provider>
+ *
+ * @method Provider|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Provider|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Provider[]    findAll()
+ * @method Provider[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+final class ProviderRepository extends ServiceEntityRepository implements AbstractRepository
 {
     public function __construct(
-        private EntityManagerInterface $entityManager
-    ) {}
-
-    public function findOne(int $id): ?Provider
-    {
-        return $this->entityManager->getRepository(Provider::class)->find($id);
+        ManagerRegistry $registry,
+    ) {
+        parent::__construct($registry, Provider::class);
     }
 
     public function findPage(int $offset, int $limit, string $search): Page
@@ -22,9 +28,9 @@ final readonly class ProviderRepository extends AbstractRepository
         $offset = max(self::DEFAULT_OFFSET, $offset);
         $limit = max(self::DEFAULT_LIMIT, $limit);
 
-        $qbRecords = $this->entityManager->getRepository(Provider::class)
+        $qbRecords = $this->getEntityManager()->getRepository(Provider::class)
             ->createQueryBuilder('p');
-        $qbCount = $this->entityManager->getRepository(Provider::class)
+        $qbCount = $this->getEntityManager()->getRepository(Provider::class)
             ->createQueryBuilder('p')
             ->select('count(p.id)');
 
@@ -52,18 +58,23 @@ final readonly class ProviderRepository extends AbstractRepository
         );
     }
 
-    public function saveProvider(Provider $provider): Provider
+    public function findOne(int $id): ?Provider
     {
-        $this->entityManager->persist($provider);
-        $this->entityManager->flush();
+        return $this->getEntityManager()->getRepository(Provider::class)->find($id);
+    }
+
+    public function saveItem(Provider $provider): Provider
+    {
+        $this->getEntityManager()->persist($provider);
+        $this->getEntityManager()->flush();
 
         return $provider;
     }
 
-    public function deleteProvider(Provider $provider): Provider
+    public function deleteItem(Provider $provider): Provider
     {
-        $this->entityManager->remove($provider);
-        $this->entityManager->flush();
+        $this->getEntityManager()->remove($provider);
+        $this->getEntityManager()->flush();
 
         return $provider;
     }

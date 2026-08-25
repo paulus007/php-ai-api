@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\ProviderRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: ProviderRepository::class)]
 #[ORM\Table(name: '`providers`')]
 #[ORM\UniqueConstraint(name: 'name_uniq_idx', fields: ['name'])]
 final class Provider extends AbstractEntity
