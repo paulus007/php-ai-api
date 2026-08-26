@@ -13,13 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
 final class TemplatePart extends AbstractEntity
 {
     public function __construct(
-        #[ORM\ManyToOne(targetEntity: Template::class)]
+        #[ORM\ManyToOne(targetEntity: Template::class, inversedBy: 'templateParts')]
         #[ORM\JoinColumn(name: 'template_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
         private Template $template,
         #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
         private string $name,
-        #[ORM\ManyToMany(targetEntity: TemplatePartProperty::class, inversedBy: 'template_part_property')]
-        private Collection $properties = new ArrayCollection([])
+        #[ORM\OneToMany(targetEntity: TemplatePartProperty::class, mappedBy: 'templatePart', cascade: ['persist', 'remove'], orphanRemoval: true,)]
+        private Collection $templatePartProperties = new ArrayCollection([])
     ) {}
 
     public function getTemplate(): Template
@@ -46,14 +46,14 @@ final class TemplatePart extends AbstractEntity
         return $this;
     }
 
-    public function getProperties(): ArrayCollection
+    public function getTemplatePartProperties(): ArrayCollection
     {
-        return $this->properties;
+        return $this->templatePartProperties;
     }
 
-    public function setProperties(ArrayCollection $properties): self
+    public function setTemplatePartProperties(ArrayCollection $templatePartProperties): self
     {
-        $this->properties = $properties;
+        $this->templatePartProperties = $templatePartProperties;
 
         return $this;
     }
@@ -65,7 +65,7 @@ final class TemplatePart extends AbstractEntity
             'name' => $this->name,
             'properties' => array_map(
                 static fn (TemplatePartProperty $property): array => $property->jsonSerialize(),
-                $this->properties->toArray()
+                $this->templatePartProperties->toArray()
             ),
         ];
     }

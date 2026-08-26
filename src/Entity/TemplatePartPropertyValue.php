@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TemplatePartPropertyValue extends AbstractEntity
 {
     public function __construct(
-        #[ORM\ManyToOne(targetEntity: TemplatePartProperty::class)]
+        #[ORM\ManyToOne(targetEntity: TemplatePartProperty::class, inversedBy: 'templatePartPropertyValues')]
         #[ORM\JoinColumn(name: 'template_part_property_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
         private TemplatePartProperty $templatePartProperty,
         #[ORM\Column(name: 'int', type: Types::INTEGER, nullable: true)]

@@ -14,8 +14,8 @@ final class Template extends AbstractEntity
     public function __construct(
         #[ORM\Column(type: 'string', length: 255, unique: true)]
         private string $name,
-        #[ORM\ManyToMany(targetEntity: TemplatePart::class, inversedBy: 'template_part')]
-        private Collection $parts = new ArrayCollection([]),
+        #[ORM\OneToMany(targetEntity: TemplatePart::class, mappedBy: 'template', cascade: ['persist', 'remove'], orphanRemoval: true,)]
+        private Collection $templateParts = new ArrayCollection([]),
     ) {}
 
     public function getName(): string
@@ -30,14 +30,14 @@ final class Template extends AbstractEntity
         return $this;
     }
 
-    public function getParts(): ArrayCollection
+    public function getTemplateParts(): ArrayCollection
     {
-        return $this->parts;
+        return $this->templateParts;
     }
 
-    public function setParts(ArrayCollection $parts): self
+    public function setTemplateParts(ArrayCollection $templateParts): self
     {
-        $this->parts = $parts;
+        $this->templateParts = $templateParts;
 
         return $this;
     }
@@ -49,7 +49,7 @@ final class Template extends AbstractEntity
             'name' => $this->name,
             'parts' => array_map(
                 static fn (TemplatePart $part): array => $part->jsonSerialize(),
-                $this->parts->toArray()
+                $this->templateParts->toArray()
             ),
         ];
     }

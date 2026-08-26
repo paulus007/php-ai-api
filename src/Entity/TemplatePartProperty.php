@@ -14,15 +14,15 @@ use Doctrine\ORM\Mapping as ORM;
 final class TemplatePartProperty extends AbstractEntity
 {
     public function __construct(
-        #[ORM\ManyToOne(targetEntity: TemplatePart::class)]
+        #[ORM\ManyToOne(targetEntity: TemplatePart::class, inversedBy: 'templatePartProperties')]
         #[ORM\JoinColumn(name: 'template_part_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
         private TemplatePart $templatePart,
         #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
-        private string $name,
+        private string       $name,
         #[ORM\Column(length: 255, nullable: false, enumType: EnumType::class)]
-        private EnumType $type,
-        #[ORM\ManyToMany(targetEntity: TemplatePartPropertyValue::class, inversedBy: 'template_part_property_value')]
-        private Collection $values = new ArrayCollection([]),
+        private EnumType     $type,
+        #[ORM\OneToMany(targetEntity: TemplatePartPropertyValue::class, mappedBy: 'templatePartProperty', cascade: ['persist', 'remove'], orphanRemoval: true,)]
+        private Collection   $templatePartPropertyValues = new ArrayCollection([]),
     ) {}
 
     public function getTemplatePart(): TemplatePart
@@ -61,14 +61,14 @@ final class TemplatePartProperty extends AbstractEntity
         return $this;
     }
 
-    public function getValues(): ArrayCollection
+    public function getTemplatePartPropertyValues(): ArrayCollection
     {
-        return $this->values;
+        return $this->templatePartPropertyValues;
     }
 
-    public function setValues(ArrayCollection $values): self
+    public function setTemplatePartPropertyValues(ArrayCollection $templatePartPropertyValues): self
     {
-        $this->values = $values;
+        $this->templatePartPropertyValues = $templatePartPropertyValues;
 
         return $this;
     }
@@ -81,7 +81,7 @@ final class TemplatePartProperty extends AbstractEntity
             'type' => $this->type->value,
             'values' => array_map(
                 static fn (TemplatePartPropertyValue $value): array => $value->jsonSerialize(),
-                $this->values->toArray()
+                $this->templatePartPropertyValues->toArray()
             ),
         ];
     }
