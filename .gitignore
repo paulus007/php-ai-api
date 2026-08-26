@@ -1,4 +1,8 @@
 
+###> IDE settings
+.vscode
+.idea
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
