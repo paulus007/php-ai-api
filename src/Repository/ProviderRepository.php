@@ -35,12 +35,12 @@ final class ProviderRepository extends ServiceEntityRepository implements Abstra
             ->select('count(p.id)');
 
         if (trim($search) !== '') {
-           $qbRecords->andWhere('p.name LIKE :search')
-               ->orWhere('p.description LIKE :search')
-               ->setParameter('search', '%' . $search . '%');
-           $qbCount->andWhere('p.name LIKE :search')
-               ->orWhere('p.description LIKE :search')
-               ->setParameter('search', '%' . $search . '%');
+            $qbRecords->andWhere('p.name LIKE :search')
+                ->orWhere('p.description LIKE :search')
+                ->setParameter('search', '%'.$search.'%');
+            $qbCount->andWhere('p.name LIKE :search')
+                ->orWhere('p.description LIKE :search')
+                ->setParameter('search', '%'.$search.'%');
         }
 
         $records = $qbRecords->setFirstResult($offset)

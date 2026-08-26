@@ -18,12 +18,13 @@ final class TemplatePartProperty extends AbstractEntity
         #[ORM\JoinColumn(name: 'template_part_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
         private TemplatePart $templatePart,
         #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
-        private string       $name,
+        private string $name,
         #[ORM\Column(length: 255, nullable: false, enumType: EnumType::class)]
-        private EnumType     $type,
-        #[ORM\OneToMany(targetEntity: TemplatePartPropertyValue::class, mappedBy: 'templatePartProperty', cascade: ['persist', 'remove'], orphanRemoval: true,)]
-        private Collection   $templatePartPropertyValues = new ArrayCollection([]),
-    ) {}
+        private EnumType $type,
+        #[ORM\OneToMany(targetEntity: TemplatePartPropertyValue::class, mappedBy: 'templatePartProperty', cascade: ['persist', 'remove'], orphanRemoval: true, )]
+        private Collection $templatePartPropertyValues = new ArrayCollection([]),
+    ) {
+    }
 
     public function getTemplatePart(): TemplatePart
     {

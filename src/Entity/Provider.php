@@ -21,10 +21,11 @@ final class Provider extends AbstractEntity
         #[ORM\Column(type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
         private bool $active = false,
         #[ORM\Column(type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
-        private bool $rfResident  = false,
+        private bool $rfResident = false,
         #[ORM\Column(type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
-        private bool $needProxy  = false
-    ) {}
+        private bool $needProxy = false,
+    ) {
+    }
 
     public function getName(): string
     {

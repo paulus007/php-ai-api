@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TemplateRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TemplateRepository::class)]
@@ -14,9 +14,10 @@ final class Template extends AbstractEntity
     public function __construct(
         #[ORM\Column(type: 'string', length: 255, unique: true)]
         private string $name,
-        #[ORM\OneToMany(targetEntity: TemplatePart::class, mappedBy: 'template', cascade: ['persist', 'remove'], orphanRemoval: true,)]
+        #[ORM\OneToMany(targetEntity: TemplatePart::class, mappedBy: 'template', cascade: ['persist', 'remove'], orphanRemoval: true, )]
         private Collection $templateParts = new ArrayCollection([]),
-    ) {}
+    ) {
+    }
 
     public function getName(): string
     {

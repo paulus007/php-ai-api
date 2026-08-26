@@ -11,8 +11,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 final readonly class TemplateService
 {
     public function __construct(
-        private TemplateRepository $templateRepository
-    ) {}
+        private TemplateRepository $templateRepository,
+    ) {
+    }
 
     public function getTemplate(int $id): ?Template
     {
@@ -59,7 +60,7 @@ final readonly class TemplateService
         return $this->templateRepository->saveItem($template);
     }
 
-    public function deleteTemplate(int $id): Template
+    public function deleteTemplate(int $id): null
     {
         $template = $this->templateRepository->findOne($id);
 
@@ -67,6 +68,8 @@ final readonly class TemplateService
             throw new NotFoundHttpException(sprintf('Template with id %d not found', $id));
         }
 
-        return $this->templateRepository->deleteItem($template);
+        $this->templateRepository->deleteItem($template);
+
+        return null;
     }
 }

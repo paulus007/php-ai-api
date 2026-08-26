@@ -13,8 +13,9 @@ final readonly class TemplatePartService
 {
     public function __construct(
         private TemplateRepository $templateRepository,
-        private TemplatePartRepository $templatePartRepository
-    ) {}
+        private TemplatePartRepository $templatePartRepository,
+    ) {
+    }
 
     public function getTemplatePart(int $id): ?TemplatePart
     {
@@ -68,7 +69,7 @@ final readonly class TemplatePartService
         return $this->templatePartRepository->saveItem($template);
     }
 
-    public function deleteTemplatePart(int $id): TemplatePart
+    public function deleteTemplatePart(int $id): null
     {
         $template = $this->templatePartRepository->findOne($id);
 
@@ -76,6 +77,8 @@ final readonly class TemplatePartService
             throw new NotFoundHttpException(sprintf('TemplatePart with id %d not found', $id));
         }
 
-        return $this->templatePartRepository->deleteItem($template);
+        $this->templatePartRepository->deleteItem($template);
+
+        return null;
     }
 }

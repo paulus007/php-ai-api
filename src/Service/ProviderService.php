@@ -11,8 +11,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 final readonly class ProviderService
 {
     public function __construct(
-        private ProviderRepository $providerRepository
-    ) {}
+        private ProviderRepository $providerRepository,
+    ) {
+    }
 
     public function getProvider(int $id): ?Provider
     {

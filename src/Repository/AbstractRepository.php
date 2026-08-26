@@ -2,8 +2,6 @@
 
 namespace App\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-
 interface AbstractRepository
 {
     public const int DEFAULT_OFFSET = 0;

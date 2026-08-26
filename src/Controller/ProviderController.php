@@ -11,8 +11,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProviderController extends AbstractController
 {
     public function __construct(
-        private readonly ProviderService $providerService
-    ) {}
+        private readonly ProviderService $providerService,
+    ) {
+    }
 
     #[Route('/provider/{id}', methods: [Request::METHOD_GET])]
     public function getProvider(int $id): JsonResponse
@@ -33,7 +34,7 @@ class ProviderController extends AbstractController
     }
 
     #[Route('/provider/put/{id}', methods: [Request::METHOD_PUT])]
-    public function putProvider(Request$request, int $id): JsonResponse
+    public function putProvider(Request $request, int $id): JsonResponse
     {
         return new JsonResponse($this->providerService->putProvider($request->toArray(), $id));
     }
@@ -49,5 +50,4 @@ class ProviderController extends AbstractController
     {
         return new JsonResponse($this->providerService->deleteProvider($id));
     }
-
 }

@@ -18,9 +18,10 @@ final class TemplatePart extends AbstractEntity
         private Template $template,
         #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false)]
         private string $name,
-        #[ORM\OneToMany(targetEntity: TemplatePartProperty::class, mappedBy: 'templatePart', cascade: ['persist', 'remove'], orphanRemoval: true,)]
-        private Collection $templatePartProperties = new ArrayCollection([])
-    ) {}
+        #[ORM\OneToMany(targetEntity: TemplatePartProperty::class, mappedBy: 'templatePart', cascade: ['persist', 'remove'], orphanRemoval: true, )]
+        private Collection $templatePartProperties = new ArrayCollection([]),
+    ) {
+    }
 
     public function getTemplate(): Template
     {

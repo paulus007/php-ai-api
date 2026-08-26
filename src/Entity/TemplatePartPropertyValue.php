@@ -23,8 +23,9 @@ class TemplatePartPropertyValue extends AbstractEntity
         #[ORM\Column(name: 'boolean', type: Types::BOOLEAN, nullable: true)]
         private ?bool $bool,
         #[ORM\Column(name: 'json', type: Types::JSON, nullable: true)]
-        private ?array $array
-    ) {}
+        private ?array $array,
+    ) {
+    }
 
     public function getTemplatePartProperty(): TemplatePartProperty
     {

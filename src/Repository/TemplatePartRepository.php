@@ -36,9 +36,9 @@ final class TemplatePartRepository extends ServiceEntityRepository implements Ab
 
         if (trim($search) !== '') {
             $qbRecords->andWhere('p.name LIKE :search')
-                ->setParameter('search', '%' . $search . '%');
+                ->setParameter('search', '%'.$search.'%');
             $qbCount->andWhere('p.name LIKE :search')
-                ->setParameter('search', '%' . $search . '%');
+                ->setParameter('search', '%'.$search.'%');
         }
 
         $records = $qbRecords->setFirstResult($offset)
