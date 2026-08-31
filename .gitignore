@@ -1,7 +1,7 @@
 
 ###> IDE settings
-.vscode
-.idea
+/.vscode/
+/.idea/
 
 ###> symfony/framework-bundle ###
 /.env.local

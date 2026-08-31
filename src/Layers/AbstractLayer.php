@@ -2,9 +2,9 @@
 
 namespace App\Layers;
 
-use Entity\RestEntity;
+use App\Entity\AbstractEntity;
 
 abstract class AbstractLayer
 {
-    abstract public function siftOut(?RestEntity $entity): ?RestEntity;
+    abstract public function siftOut(?AbstractEntity $entity): ?AbstractEntity;
 }

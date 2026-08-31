@@ -2,11 +2,11 @@
 
 namespace App\Layers;
 
-use Entity\RestEntity;
+use App\Entity\AbstractEntity;
 
 final class DataLayer extends AbstractLayer
 {
-    public function siftOut(?RestEntity $entity): ?RestEntity
+    public function siftOut(?AbstractEntity $entity): ?AbstractEntity
     {
         return $entity;
     }
